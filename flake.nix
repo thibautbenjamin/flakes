@@ -2,9 +2,19 @@
   description = "Declarations of my flakes";
 
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, ... }: {
+  outputs = { self, nixpkgs, ... }: {
+
+    overlays.default = final: prev: {
+      emacsPackagesFor = emacs:
+        (prev.emacsPackagesFor emacs).overrideScope (efinal: eprev: {
+          math-delimiters = efinal.callPackage ./pkgs/math-delimiters/default.nix { };
+          org-modern-indent = efinal.callPackage ./pkgs/org-modern-indent/default.nix { };
+      });
+    };
+
     modules.homeManager.minimal-emacs = { config, pkgs, lib, ... }: {
       options.emacs.minimal = {
         enable = lib.mkEnableOption "minimal emacs config";
