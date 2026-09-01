@@ -12,6 +12,7 @@
         (prev.emacsPackagesFor emacs).overrideScope (efinal: eprev: {
           math-delimiters = efinal.callPackage ./pkgs/math-delimiters/default.nix { };
           org-modern-indent = efinal.callPackage ./pkgs/org-modern-indent/default.nix { };
+          lean4-mode = efinal.callPackage ./pkgs/lean4-mode/default.nix { };
       });
     };
 

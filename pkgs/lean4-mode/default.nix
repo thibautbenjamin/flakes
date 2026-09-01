@@ -1,6 +1,8 @@
 {
   melpaBuild,
   fetchFromGitHub,
+  melpaPackages,
+  writeText,
 }:
 melpaBuild rec {
     pname = "lean4-mode";
@@ -14,7 +16,7 @@ melpaBuild rec {
     };
     packageRequires = with melpaPackages;
       [ dash f flycheck magit-section lsp-mode s ];
-    recipe = self.writeText "recipe" ''
+    recipe = writeText "recipe" ''
                (lean4-mode :repo "leanprover/lean4-mode" :fetcher github)
              '';
 }
